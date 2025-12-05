@@ -2,7 +2,7 @@
 import numpy as np
 from lib.layers import Dense
 from lib.activations import Sigmoid, Tanh
-from lib.losses import BCE
+from lib.losses import MSE
 from lib.network import Sequential
 
 # XOR dataset
@@ -17,8 +17,8 @@ model = Sequential([
     Sigmoid()
 ])
 
-loss_fn = BCE()
-lr = 0.5
+loss_fn = MSE()
+lr = 1.0
 
 # Training
 for epoch in range(10000):
