@@ -46,3 +46,15 @@ for epoch in range(epochs + 1):
 print("Predictions:")
 print(model.forward(X))
 print("Final Loss:", loss)
+# ======================
+# TEST CUSTOM INPUTS
+# ======================
+print("\nTesting New Inputs:")
+new_inputs = np.array([
+    [0.2, 0.8],
+    [0.8, 0.2],
+    [0.0, 0.0],
+    [1.0, 1.0]
+], dtype=float)
+
+print(model.forward(new_inputs))
