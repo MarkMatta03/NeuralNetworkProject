@@ -1,5 +1,8 @@
 {
-    "terminal.integrated.env.windows": {
-        "PYTHONPATH": "E:/NeuralNetworkProject"
+    "python.analysis.extraPaths": [
+        "C:/Users/MarkMattaGuirgusabde/AppData/Local/Programs/Python/Python311/Lib/site-packages"
+    ],
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "none"
     }
 }
