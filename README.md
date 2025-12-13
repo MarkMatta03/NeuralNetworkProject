@@ -1,100 +1,190 @@
-# Neural Network From Scratch — Part 1
 
-This project implements a complete neural network **from scratch using NumPy only**, without using deep learning frameworks such as TensorFlow or PyTorch.  
-This work fulfills **Part 1** of the semester project requirements.
+
+```markdown
+# Neural Network From Scratch — Part 1 & Part 2
+
+This project implements a complete neural network **from scratch using NumPy**, without relying on deep learning frameworks for the core implementation.  
+The work is divided into **Part 1** (fundamentals and XOR) and **Part 2** (autoencoder on MNIST with latent-space classification).
 
 ---
 
-## 🎯 Objectives of Part 1
+## 🎯 Part 1 — Neural Network Fundamentals
+
+### Objectives
 
 ✔ Build a modular neural network library  
 ✔ Implement:
-- Dense (Fully Connected) Layers  
-- Activation Functions (Sigmoid, Tanh)  
-- Mean Squared Error (MSE) Loss  
+- Dense (Fully Connected) layers  
+- Activation functions (Sigmoid, Tanh)  
+- Mean Squared Error (MSE) loss  
 - Stochastic Gradient Descent (SGD) optimizer  
 
-✔ Train the model to learn the XOR logic function  
-✔ Perform Gradient Checking to verify correctness of backpropagation  
-✔ Present training results in a Jupyter Notebook
+✔ Train a neural network to learn the XOR logic function  
+✔ Perform gradient checking to verify backpropagation correctness  
 
 ---
 
-## 🧠 XOR Problem Training
+### 🧠 XOR Problem
 
-The XOR truth table:
+**XOR Truth Table**
 
 | Input | Output |
 |------|--------|
-| (0,0) | 0 |
-| (0,1) | 1 |
-| (1,0) | 1 |
-| (1,1) | 0 |
+| (0, 0) | 0 |
+| (0, 1) | 1 |
+| (1, 0) | 1 |
+| (1, 1) | 0 |
 
-The neural network architecture used:
+**Network Architecture**
+```
 
-Input(2) → Dense(4) + Tanh → Dense(1) + Sigmoid
+Input (2)
+→ Dense (4) + Tanh
+→ Dense (1) + Sigmoid
 
-Training Configuration:
+```
 
-- Loss function: **MSE**
-- Optimization: **SGD**
+**Training Configuration**
+- Loss: Mean Squared Error (MSE)
+- Optimizer: SGD
 - Epochs: 50,000
 
-### ✔ Final XOR Predictions
+**Final Predictions**
+```
 
 [[0.01]
 [0.98]
 [0.98]
 [0.02]]
 
-➡ The model successfully learns XOR 🎉
+```
+
+✔ The network successfully learns the XOR function.
 
 ---
 
-## 📈 Training Loss Curve
+### 🧪 Gradient Checking
 
-The loss smoothly approaches ~0 during training.
+- Numerical gradients computed using finite differences  
+- Compared with analytical gradients from backpropagation  
 
-📍 Included inside:
-notebooks/project_demo.ipynb
+**Result:**  
+Maximum difference ≈ **1e-5**, confirming correctness of the implementation.
+
 ---
 
-## 🧪 Gradient Checking
+## 🎯 Part 2 — Autoencoder on MNIST
 
-To ensure the correctness of backpropagation:
+### Objectives
 
-- Numerical gradients were calculated using finite difference
-- Compared with analytical gradients from backward pass
+✔ Apply the custom neural network library to a real dataset  
+✔ Train an autoencoder for unsupervised representation learning  
+✔ Visualize image reconstruction quality  
+✔ Use latent features for classification  
+✔ Validate results using a TensorFlow/Keras reference model  
 
-Result:
-Maximum difference ≈ 1e-5
-✔ Confirms backpropagation implementation is correct
+---
+
+### 🖼️ MNIST Autoencoder
+
+**Dataset**
+- MNIST handwritten digits
+- Input dimension: 784
+- Normalized to range [0, 1]
+
+**Architecture**
+```
+
+Encoder: 784 → 256 → 64
+Decoder:  64 → 256 → 784
+
+```
+
+- Activations: Tanh (hidden), Sigmoid (output)
+- Loss: Mean Squared Error (MSE)
+- Optimizer: SGD
+
+✔ The autoencoder successfully reconstructs digit images.
+
+---
+
+### 🎯 Latent Space Classification
+
+- Latent vectors (64-D) extracted from the encoder  
+- Support Vector Machine (SVM) trained on:
+  - Raw pixels (baseline)
+  - Latent features (autoencoder output)
+
+✔ Latent features achieve comparable or better accuracy with much lower dimensionality.
+
+---
+
+### 🔁 TensorFlow / Keras Comparison
+
+A reference autoencoder is implemented using **TensorFlow/Keras** with the same architecture and loss function to validate the correctness of the custom implementation.
+
+> TensorFlow is used **only for comparison**, not for the main implementation.
 
 ---
 
 ## 📁 Project Structure
 
+```
+
 NeuralNetworkProject/
 │
-├─ lib/
-│ ├─ layers.py # Dense layer + SGD update
-│ ├─ activations.py # Sigmoid & Tanh
-│ ├─ losses.py # MSE + gradient
-│ ├─ network.py # Sequential model container
+├── lib/
+│   ├── layers.py        # Dense layers
+│   ├── activations.py  # Sigmoid & Tanh
+│   ├── losses.py       # MSE loss
+│   ├── optimizer.py    # SGD optimizer
+│   └── network.py      # Sequential container
 │
-├─ notebooks/
-│ └─ project_demo.ipynb # Part 1 report & results
+├── notebooks/
+│   └── project_demo.ipynb   # Part 1 & Part 2 results
 │
-├─ xor_mse_test.py # Quick test script for XOR
-└─ README.md
+├── xor_mse_test.py     # XOR test script
+├── requirements.txt
+└── README.md
+
+````
+
 ---
 
 ## ▶️ How to Run
 
-Open Terminal in project root:
+**XOR Test**
+```bash
+python xor_mse_test.py
+````
+
+**Full Project Demo**
+Open:
+
+```
+notebooks/project_demo.ipynb
+```
+
+Run all cells using the **Python 3.11** kernel.
+
+---
+
+## 🛠️ Environment & Dependencies
+
+* Python **3.11**
+* Required libraries:
+
+```
+numpy
+matplotlib
+scikit-learn
+pandas
+tensorflow
+```
+
+Install with:
 
 ```bash
-python -m xor_mse_test
-Or open the notebook:
-notebooks/project_demo.ipynb
+pip install -r requirements.txt
+```
+
