@@ -1,7 +1,7 @@
-# Neural Network From Scratch — Part 1
+# Neural Network From Scratch — Part 1 & Part 2
 
-This project implements a complete neural network **from scratch using NumPy only**, without using deep learning frameworks such as TensorFlow or PyTorch.  
-This work fulfills **Part 1** of the semester project requirements.
+This project implements a complete neural network **from scratch using NumPy only**, without using deep learning frameworks such as TensorFlow or PyTorch for the core implementation.  
+This work fulfills **Part 1 and Part 2** of the semester project requirements.
 
 ---
 
@@ -16,7 +16,7 @@ This work fulfills **Part 1** of the semester project requirements.
 
 ✔ Train the model to learn the XOR logic function  
 ✔ Perform Gradient Checking to verify correctness of backpropagation  
-✔ Present training results in a Jupyter Notebook
+✔ Present training results in a Jupyter Notebook  
 
 ---
 
@@ -33,13 +33,13 @@ The XOR truth table:
 
 The neural network architecture used:
 
-Input(2) → Dense(4) + Tanh → Dense(1) + Sigmoid
+Input(2) → Dense(4) + Tanh → Dense(1) + Sigmoid  
 
 Training Configuration:
 
 - Loss function: **MSE**
 - Optimization: **SGD**
-- Epochs: 50,000
+- Epochs: **50,000**
 
 ### ✔ Final XOR Predictions
 
@@ -56,20 +56,72 @@ Training Configuration:
 
 The loss smoothly approaches ~0 during training.
 
-📍 Included inside:
+📍 Included inside:  
 notebooks/project_demo.ipynb
+
 ---
 
 ## 🧪 Gradient Checking
 
 To ensure the correctness of backpropagation:
 
-- Numerical gradients were calculated using finite difference
-- Compared with analytical gradients from backward pass
+- Numerical gradients were calculated using finite differences  
+- Compared with analytical gradients from the backward pass  
 
-Result:
-Maximum difference ≈ 1e-5
-✔ Confirms backpropagation implementation is correct
+Result:  
+Maximum difference ≈ **1e-5**  
+✔ Confirms backpropagation implementation is correct  
+
+---
+
+## 🎯 Objectives of Part 2
+
+✔ Apply the custom neural network library to a real dataset  
+✔ Train an autoencoder for unsupervised learning  
+✔ Reconstruct input images  
+✔ Extract latent features  
+✔ Perform classification using latent representations  
+✔ Compare results with a TensorFlow/Keras reference model  
+
+---
+
+## 🖼️ Autoencoder on MNIST Dataset
+
+Dataset used:
+- MNIST handwritten digits  
+- Input size: 784  
+- Pixel values normalized to range [0, 1]  
+
+Autoencoder architecture:
+
+Encoder: 784 → 256 → 64  
+Decoder:  64 → 256 → 784  
+
+Training Configuration:
+
+- Loss function: **MSE**
+- Optimization: **SGD**
+
+➡ The autoencoder successfully reconstructs digit images.
+
+---
+
+## 🎯 Latent Space Classification
+
+- Latent features extracted from the encoder (64 dimensions)  
+- Support Vector Machine (SVM) trained using:
+  - Raw pixels (baseline)
+  - Latent features (autoencoder output)
+
+✔ Latent features achieve comparable or better accuracy with much lower dimensionality.
+
+---
+
+## 🔁 TensorFlow / Keras Comparison
+
+A reference autoencoder was implemented using **TensorFlow/Keras** with the same architecture and loss function.
+
+➡ Used only for validation and comparison with the custom implementation.
 
 ---
 
@@ -78,23 +130,27 @@ Maximum difference ≈ 1e-5
 NeuralNetworkProject/
 │
 ├─ lib/
-│ ├─ layers.py # Dense layer + SGD update
+│ ├─ layers.py # Dense layers
 │ ├─ activations.py # Sigmoid & Tanh
 │ ├─ losses.py # MSE + gradient
-│ ├─ network.py # Sequential model container
+│ ├─ optimizer.py # SGD optimizer
+│ └─ network.py # Sequential model container
 │
 ├─ notebooks/
-│ └─ project_demo.ipynb # Part 1 report & results
+│ └─ project_demo.ipynb # Part 1 & Part 2 report & results
 │
-├─ xor_mse_test.py # Quick test script for XOR
+├─ xor_mse_test.py # XOR test script
+├─ requirements.txt
 └─ README.md
+
 ---
 
 ## ▶️ How to Run
 
-Open Terminal in project root:
+Open terminal in project root:
 
 ```bash
-python -m xor_mse_test
+python xor_mse_test.py
 Or open the notebook:
 notebooks/project_demo.ipynb
+Run all cells from top to bottom using the Python 3.11 kernel.
